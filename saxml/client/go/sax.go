@@ -25,7 +25,8 @@ import (
 
 	log "github.com/golang/glog"
 	"google.golang.org/grpc"
-	"google3/third_party/golang/grpc/metadata/metadata"
+	"google.golang.org/grpc/metadata"
+	//"google3/third_party/golang/grpc/metadata/metadata"
 	"saxml/client/go/connection"
 	"saxml/client/go/location"
 	"saxml/client/go/saxadmin"
