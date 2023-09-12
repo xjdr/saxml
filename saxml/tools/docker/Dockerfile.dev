@@ -30,12 +30,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 RUN apt -y update && apt install -y bazel-5.4.0 google-cloud-cli
 RUN update-alternatives --install /usr/bin/bazel bazel /usr/bin/bazel-5.4.0 20
 
-RUN pip3 install -U pip numpy
+RUN pip3 install -U pip numpy pip-tools
 
 COPY . saxml
 WORKDIR saxml
 
-RUN bazel build saxml/bin:admin_config
+RUN pip-compile --allow-unsafe --output-file=requirements.txt requirements.in
+RuN bazel build saxml/bin:admin_config
 RUN bazel build saxml/bin:admin_server
 RUN bazel build saxml/bin:saxutil
 RUN bazel build saxml/server:server

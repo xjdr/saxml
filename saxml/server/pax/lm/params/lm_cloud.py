@@ -37,7 +37,7 @@ from saxml.server.pax.lm.params import template
 class BaseLLaMA(base_experiment.BaseExperiment):
   """Base LLaMA Transformer LM configuration."""
 
-  SPM_MODEL = '/cns/mf-d/home/huangyp/ulm/pax-llama/tokenizer.model'
+  SPM_MODEL = 'gs://fangorn-models/llama/tokenizer.model'
   SOS_ID = 1
   EOS_ID = 2
 
@@ -185,8 +185,7 @@ class LLaMA7BFP16(BaseLLaMA):
   BUCKET_KEYS = None
   MAX_DECODE_STEPS = 32
   ENABLE_GENERATE_STREAM = False
-
-  ICI_MESH_SHAPE = [1, 1, 1]
+  ICI_MESH_SHAPE = [1, 4, 2]
 
 
 @servable_model_registry.register
@@ -205,7 +204,7 @@ class LLaMA7BFP16TPUv4(LLaMA7BFP16):
 
 
 @servable_model_registry.register
-@quantization.for_transformer(quantize_on_the_fly=False)
+#@quantization.for_transformer(quantize_on_the_fly=False)
 class LLaMA7B(BaseLLaMA):
   """7B model on a A100-40GB.
 
@@ -219,7 +218,7 @@ class LLaMA7B(BaseLLaMA):
   NUM_HEADS = 32
   MODEL_DIMS = 4096
   HIDDEN_DIMS = 11008
-  ICI_MESH_SHAPE = [1, 1, 1]
+  ICI_MESH_SHAPE = [1, 4, 2]
 
   @property
   def test_mode(self) -> bool:
